@@ -47,19 +47,21 @@ bw get item <query>
 
 The Bitwarden CLI `get` command can only return a single result. If your query would return multiple results, it will return an error.
 
-You can find out its item id like this:
+The alternative is to use the `bw list items --search <query>` command for searching multiple items.
+
+You can find the item id like this:
 
 ```bash
 bw get item <query> | jq .id
 ```
 
-If an newly created item is not showing up, run `bw sync` to synchronize your CLI client with the current online vault.
+If a newly created item is not showing up, run `bw sync` to synchronize your CLI client with the current online vault.
 
 ## FAQ
 
 ### Is this safe?
 
-`secrethubwarden` is a simple bash script that wraps around the Bitwarden and GitHub CLIs. You can inspect it to make sure it's secure and doesn't leak your secrets in any way. I tried to keep it as simple as possible, and also secure. I also tried to follow the Bash best practices as good as possible ([ShellCheck](https://www.shellcheck.net) is running on every push to this repository.)
+`secrethubwarden` is a Bash script that wraps around the Bitwarden and GitHub CLIs. You can inspect it to make sure it is secure and does not leak your secrets in any way. I tried to keep it as simple as possible, and also secure. I also tried to follow the Bash best practices as good as possible ([ShellCheck](https://www.shellcheck.net) is running on every push to this repository.)
 
 ### What's this for?
 
@@ -67,7 +69,11 @@ If you're keeping credentials out of your code (See [Twelve Factor Apps Factor #
 
 So you store your `.env` in a password manager like Bitwarden. But any change in the file now has to be updated in the password manager and manually copied to the GitHub secrets. Which is both manual work and error prone.
 
-This script can keep all secrets conveniently updated.
+This script can keep all secrets conveniently updated. It is not intended as a CI/CD script, but is used before launching a CI/CD process.
+
+### What does the error message `mac failed` mean?
+
+Nothing, ignore it. (Some Bitwarden issue, not important for this script. I think.)
 
 ### What's with the name?
 
@@ -81,6 +87,11 @@ I... Don't let me name things.
 ## Author
 
 Created by [Christian Studer](mailto:cstuder@existenz.ch), [Bureau für digitale Existenz](https://bureau.existenz.ch).
+
+## Credits
+
+- Based on the [minimal safe Bash template](https://betterdev.blog/minimal-safe-bash-script-template/).
+- Inspired by [envwarden](https://github.com/envwarden/envwarden).
 
 ## License
 
