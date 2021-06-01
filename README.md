@@ -1,6 +1,6 @@
 # secrethubwarden
 
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 Copy secrets from [Bitwarden](https://bitwarden.com) to [GitHub repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) with this Bash script.
 
@@ -20,11 +20,12 @@ Inspired by [envwarden](https://github.com/envwarden/envwarden).
 ## Usage
 
 1. Create a login vault entry or a secure note in Bitwarden and give it a unique name.
-2. Create a [repository secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository) in GitHub.
-3. Write a `.secrethubwarden` file in the `.env` format with `GITHUB_SECRET_NAME=bitwarden_vault_entry_name` on each line.
-4. Execute `secrethubwarden` to fetch the secrets from Bitwarden and write them to GitHub.
+2. Write a `.secrethubwarden` file in the `.env` format with `GITHUB_SECRET_NAME=bitwarden_vault_entry_name` on each line.
+3. Execute `secrethubwarden` to fetch the secrets from Bitwarden and write them to GitHub.
 
 The script will complain if you are not logged in to Bitwarden (`bw login`) or GitHub (`gh auth login`).
+
+If a GitHub repository secret doesn't exist, it will be created.
 
 For convenience sake during testing you might want to unlock your Bitwarden vault (`bw unlock`) and store the session key temporarily in your environment (`export BW_SESSION="..."`). Don't forget to lock afterwards (`bw lock`).
 
@@ -59,25 +60,31 @@ If a newly created item is not showing up, run `bw sync` to synchronize your CLI
 
 ## FAQ
 
-### Is this safe?
+### What is `secrethubwarden` for?
 
-`secrethubwarden` is a Bash script that wraps around the Bitwarden and GitHub CLIs. You can inspect it to make sure it is secure and does not leak your secrets in any way. I tried to keep it as simple as possible, and also secure. I also tried to follow the Bash best practices as good as possible ([ShellCheck](https://www.shellcheck.net) is running on every push to this repository.)
+It is a good practice to keep credentials out of your code (See [Twelve Factor Apps Factor #3](https://12factor.net)) and inject them during deployment into the build from GitHub secrets, for example in the form of an `.env` file. This means you need to store your unencrypted `.env` file somewhere, as it can only be written but not read from GitHub.
 
-### What's this for?
-
-If you're keeping credentials out of your code (See [Twelve Factor Apps Factor #3](https://12factor.net))and inject them during deployment into an `.env` file from the GitHub secrets, you might have noticed how tedious this can be. You need to store your `.env` file somewhere, as it can only be written but not read from GitHub.
-
-So you store your `.env` in a password manager like Bitwarden. But any change in the file now has to be updated in the password manager and manually copied to the GitHub secrets. Which is both manual work and error prone.
+So you store your `.env` in a password manager like Bitwarden. But any change in the file now has to be updated in the password manager and manually copied to the GitHub secrets. Which is both manual work, tedious and error prone.
 
 This script can keep all secrets conveniently updated. It is not intended as a CI/CD script, but is used before launching a CI/CD process.
 
+### Is it safe?
+
+`secrethubwarden` is a Bash script that wraps around the Bitwarden and GitHub CLIs. You can inspect it to make sure it is secure and does not leak your secrets in any way. I tried to keep it as simple as possible, and also secure. I also tried to follow the Bash best practices as good as possible, i.e. [ShellCheck](https://www.shellcheck.net) is running on every push to this repository.
+
+### Pros & Cons
+
+- Pro: Colorful output.
+- Pro: Interactive guidance.
+- Con: Not atomic, no transactions, if a problem occurs during the execution, only half the secrets might get updated.
+
 ### What does the error message `mac failed` mean?
 
-Nothing, ignore it. (Some Bitwarden issue, not important for this script. I think.)
+Nothing, ignore it. (Some Bitwarden issue, not important for this script, I think.)
 
 ### What's with the name?
 
-I... Don't let me name things.
+Don't let me name things.
 
 ## Disclaimer
 
@@ -90,8 +97,8 @@ Created by [Christian Studer](mailto:cstuder@existenz.ch), [Bureau für digitale
 
 ## Credits
 
-- Based on the [minimal safe Bash template](https://betterdev.blog/minimal-safe-bash-script-template/).
 - Inspired by [envwarden](https://github.com/envwarden/envwarden).
+- Based on the [minimal safe Bash template](https://betterdev.blog/minimal-safe-bash-script-template/).
 
 ## License
 
