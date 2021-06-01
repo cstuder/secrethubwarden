@@ -25,7 +25,7 @@ Inspired by [envwarden](https://github.com/envwarden/envwarden).
 
 The script will complain if you are not logged in to Bitwarden (`bw login`) or GitHub (`gh auth login`).
 
-If a GitHub repository secret doesn't exist, it will be created.
+If a GitHub repository secret doe not exist, it will be created.
 
 For convenience sake during testing you might want to unlock your Bitwarden vault (`bw unlock`) and store the session key temporarily in your environment (`export BW_SESSION="..."`). Don't forget to lock afterwards (`bw lock`).
 
@@ -46,7 +46,7 @@ You can search an item like this:
 bw get item <query>
 ```
 
-The Bitwarden CLI `get` command can only return a single result. If your query would return multiple results, it will return an error.
+The Bitwarden CLI `get` command can only return a single result. If your query would return multiple results, it will generate an error.
 
 The alternative is to use the `bw list items --search <query>` command for searching multiple items.
 
@@ -77,6 +77,7 @@ This script can keep all secrets conveniently updated. It is not intended as a C
 - Pro: Colorful output.
 - Pro: Interactive guidance.
 - Con: Not atomic, no transactions, if a problem occurs during the execution, only half the secrets might get updated.
+- Con: It is kinda slow.
 
 ### What does the error message `mac failed` mean?
 
