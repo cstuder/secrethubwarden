@@ -2,7 +2,7 @@
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-Copy secrets from [Bitwarden](https://bitwarden.com) to [GitHub repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) with this Bash script.
+Synchronize secrets from [Bitwarden](https://bitwarden.com) to [GitHub repository secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) with this Bash script.
 
 Inspired by [envwarden](https://github.com/envwarden/envwarden).
 
@@ -32,7 +32,7 @@ During testing you might want to unlock your Bitwarden vault (`bw unlock`) and s
 ### Example `.secrethubwarden` file
 
 ```env
-MY_SECRET_PASSWORD=secrethubwarden Example Password
+MY_SECRET_PASSWORD=secrethubwarden Example Password Name
 MY_SECRET_NOTE=ecb15895-f4ea-428d-bf5d-ad3700483945
 ```
 
@@ -89,7 +89,7 @@ Note: Writing a multiline secret string directly into a file replaces all newlin
 
 - Pro: Colorful output.
 - Pro: Interactive guidance.
-- Con: Not atomic, no transactions. Ff a problem occurs during the execution, only half the secrets might get updated.
+- Con: Not atomic, no transactions. If a problem occurs during the execution, only half the secrets might get updated.
 - Con: It is kinda slow.
 
 ### What does the error message `mac failed` mean?
