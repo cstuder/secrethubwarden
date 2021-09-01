@@ -87,8 +87,9 @@ Note: Writing a multiline secret string directly into a file replaces all newlin
 
 ### Pros & Cons
 
-- Pro: Colorful output.
 - Pro: Interactive guidance.
+- Pro: Colorful output.
+
 - Con: Not atomic, no transactions. If a problem occurs during the execution, only half the secrets might get updated.
 - Con: It is kinda slow.
 
