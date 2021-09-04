@@ -6,6 +6,8 @@ Synchronize secrets from [Bitwarden](https://bitwarden.com) to [GitHub repositor
 
 Inspired by [envwarden](https://github.com/envwarden/envwarden).
 
+![secrethubwarden in action](img/secrethubwarden_terminal.gif)
+
 ## Installation
 
 - Install the [Bitwarden CLI `bw`](https://bitwarden.com/help/article/cli/)
