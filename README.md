@@ -21,7 +21,7 @@ Inspired by [envwarden](https://github.com/envwarden/envwarden).
 
 ## Usage
 
-1. Create a login entry or a secure note in Bitwarden and give it a unique name.
+1. Create a login entry, a secure note or an SSH key in Bitwarden and give it a unique name.
 2. Write a `.secrethubwarden` file in the `.env` format with `GITHUB_SECRET_NAME=bitwarden_vault_entry_name` on each line.
 3. Execute `secrethubwarden` to fetch the secrets from Bitwarden and write them to GitHub.
 
@@ -36,6 +36,7 @@ During testing you might want to unlock your Bitwarden vault (`bw unlock`) and s
 ```env
 MY_SECRET_PASSWORD=secrethubwarden Example Password Name
 MY_SECRET_NOTE=ecb15895-f4ea-428d-bf5d-ad3700483945
+MY_SSH_KEY=secrethubwarden Example SSH Key
 ```
 
 ### Adressing Bitwarden vault items
